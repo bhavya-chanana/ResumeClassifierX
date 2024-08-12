@@ -1,0 +1,37 @@
+import numpy as np
+from sklearn.cluster import KMeans
+
+# Coordinates for you and your friends
+locations = np.array([
+    [40.7128, -74.0060],   # Your location
+    [34.0522, -118.2437],  # Friend 1
+    [51.5074, -0.1278],    # Friend 2
+    [48.8566, 2.3522],     # Friend 3
+    [35.6895, 139.6917],   # Friend 4
+    [55.7558, 37.6176],    # Friend 5
+    [22.5726, 88.3639],    # Friend 6
+    [41.9028, 12.4964],    # Friend 7
+    [19.0760, 72.8777],    # Friend 8
+    [25.276987, 51.517679],# Friend 9
+    [33.6844, -117.8265]   # Friend 10
+])
+
+# Coordinates for malls
+malls = np.array([
+    [40.730610, -73.935242],  # Mall A
+    [34.052235, -118.243683]  # Mall B
+])
+
+# Combine locations and malls
+all_locations = np.vstack((locations, malls))
+
+# Perform K-means clustering with 2 clusters
+kmeans = KMeans(n_clusters=2, random_state=0).fit(all_locations)
+
+# Get the centroids of the clusters
+centroids = kmeans.cluster_centers_
+
+# Centroids represent the meeting locations
+print("The two possible meeting locations are:")
+for i, centroid in enumerate(centroids):
+    print(f"Meeting Location {i+1}: Latitude {centroid[0]}, Longitude {centroid[1]}")
